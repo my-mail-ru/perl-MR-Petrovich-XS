@@ -1,0 +1,7 @@
+*~
+*.swp
+*.swo
+
+Makefile
+Makefile.old
+blib

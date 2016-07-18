@@ -1,0 +1,5 @@
+TYPEMAP
+petr_gender_t T_IV
+petr_case_t T_IV
+petr_name_kind_t T_IV
+size_t * T_PTR

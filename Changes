@@ -1,0 +1,6 @@
+Revision history for Perl extension MR::Petrovich::XS.
+
+0.01  Wed Jul 13 14:12:49 2016
+	- original version; created by h2xs 1.23 with options
+		-b 5.8.9 -A -n MR::Petrovich::XS --use-xsloader
+
