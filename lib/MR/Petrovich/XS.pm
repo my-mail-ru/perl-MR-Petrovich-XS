@@ -1,6 +1,6 @@
 package MR::Petrovich::XS;
 
-use 5.008009;
+use 5.008008;
 use strict;
 use warnings;
 use utf8;
