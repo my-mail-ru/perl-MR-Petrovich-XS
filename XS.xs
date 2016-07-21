@@ -19,7 +19,6 @@ SV * _inflect(const char *data, size_t len, petr_name_kind_t kind, petr_gender_t
     size_t dest_buf_size = len*2;
     SV *ret = newSV(dest_buf_size);
     SvPOK_on(ret);
-    //sv_setpv(ret, "");
 
     size_t dest_len;
     char *dest = SvPVutf8_nolen(ret);
