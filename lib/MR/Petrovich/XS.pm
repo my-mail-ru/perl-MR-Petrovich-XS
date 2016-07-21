@@ -52,9 +52,9 @@ sub inflect_name {
 
     use bytes;
     my $len = length($name);
-    $name = _inflect_name($name, $len, $kind, $gender, $case);
+    my $inflected_name = _inflect_name($name, $len, $kind, $gender, $case) or warn "Can't inflect name '$name' (kind:$kind; gender:$gender; case:$case)";
     no bytes;
-    return $name;
+    return $inflected_name || $name;
 }
 
 sub inflect_first_name {
