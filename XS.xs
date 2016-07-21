@@ -17,10 +17,12 @@ SV * _inflect(const char *data, size_t len, petr_name_kind_t kind, petr_gender_t
     dMY_CXT;
 
     size_t dest_buf_size = len*2;
-    SV *ret = newSVpvn("",dest_buf_size);
+    SV *ret = newSV(dest_buf_size);
+    SvPOK_on(ret);
+    //sv_setpv(ret, "");
 
-    char *dest = SvPVutf8_nolen(ret);
     size_t dest_len;
+    char *dest = SvPVutf8_nolen(ret);
 
     int code = petr_inflect(MY_CXT.petr_ctx,data,len,kind,gender,dest_case,dest,dest_buf_size,&dest_len); 
     if(code != 0) return &PL_sv_undef;
