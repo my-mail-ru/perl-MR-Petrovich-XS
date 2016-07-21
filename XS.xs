@@ -21,14 +21,21 @@ void croak_petr_error(int code) {
     }
 }
 
-char * _inflect(const char *data, size_t len, petr_name_kind_t kind, petr_gender_t gender, petr_case_t dest_case) {
+SV * _inflect(const char *data, size_t len, petr_name_kind_t kind, petr_gender_t gender, petr_case_t dest_case) {
     dMY_CXT;
     size_t dest_buf_size = len*2;
     char *dest = malloc(dest_buf_size);
     size_t *dest_len = malloc(sizeof(size_t));
     int code = petr_inflect(MY_CXT.petr_ctx,data,len,kind,gender,dest_case,dest,dest_buf_size,dest_len); 
     if(code != 0) croak_petr_error(code);
-    return dest;
+
+    SV * ret = newSVpv(dest, *dest_len);
+    SvUTF8_on(ret);
+
+    free(dest);
+    free(dest_len);
+
+    return ret;
 }
 
 MODULE = MR::Petrovich::XS		PACKAGE = MR::Petrovich::XS		
@@ -54,7 +61,7 @@ CODE:
     dMY_CXT;
     petr_free_context(MY_CXT.petr_ctx);
 
-char *
+SV *
 _inflect_name(data,len,kind,gender,dest_case)
     const char *data
     size_t len
@@ -66,7 +73,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-char *
+SV *
 _inflect_first_name(data,len,gender,dest_case)
     const char *data
     size_t len
@@ -77,7 +84,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-char *
+SV *
 _inflect_middle_name(data,len,gender,dest_case)
     const char *data
     size_t len
@@ -88,7 +95,7 @@ CODE:
 OUTPUT:
     RETVAL
 
-char *
+SV *
 _inflect_last_name(data,len,gender,dest_case)
     const char *data
     size_t len

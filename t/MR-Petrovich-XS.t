@@ -108,7 +108,7 @@ sub convert {
     
     my $method   = "inflect_".$kind."_name";
     if($opts{test}) {
-        is($petr->$method($t->[0], $gender, $_), encode_utf8($t->[$_]), 
+        is($petr->$method($t->[0], $gender, $_), $t->[$_], 
             "Test $GENDER[$gender] $kind name [ ${\(encode_utf8($t->[0]))} ; $CASE[$_] ]") for 1..5;
     } else {
         $petr->$method($t->[0], $gender, $_) for 1..5;
