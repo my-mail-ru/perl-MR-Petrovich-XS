@@ -51,7 +51,8 @@ sub inflect_name {
     confess "Illegal case '$case'!" if $case < 0 || $case > CASE_MAX_IDX;
 
     use bytes;
-    $name = _inflect_name($name, length($name), $kind, $gender, $case);
+    my $len = length($name);
+    $name = _inflect_name($name, $len, $kind, $gender, $case);
     no bytes;
     return $name;
 }
