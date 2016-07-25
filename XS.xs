@@ -16,7 +16,7 @@ START_MY_CXT;
 SV * _inflect(const char *data, size_t len, petr_name_kind_t kind, petr_gender_t gender, petr_case_t dest_case) {
     dMY_CXT;
 
-    size_t dest_buf_size = len*2;
+    size_t dest_buf_size = len*4;
     SV *ret = newSV(dest_buf_size);
     SvPOK_on(ret);
 
@@ -25,7 +25,7 @@ SV * _inflect(const char *data, size_t len, petr_name_kind_t kind, petr_gender_t
 
     int code = petr_inflect(MY_CXT.petr_ctx,data,len,kind,gender,dest_case,dest,dest_buf_size,&dest_len); 
     if(code != 0) { 
-        sv_clear(ret);
+        SvREFCNT_dec(ret);
         return &PL_sv_undef;
     }
     
