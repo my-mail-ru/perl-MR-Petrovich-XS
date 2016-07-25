@@ -24,7 +24,10 @@ SV * _inflect(const char *data, size_t len, petr_name_kind_t kind, petr_gender_t
     char *dest = SvPVutf8_nolen(ret);
 
     int code = petr_inflect(MY_CXT.petr_ctx,data,len,kind,gender,dest_case,dest,dest_buf_size,&dest_len); 
-    if(code != 0) return &PL_sv_undef;
+    if(code != 0) { 
+        sv_clear(ret);
+        return &PL_sv_undef;
+    }
     
     SvCUR_set(ret, dest_len);
     return ret;
