@@ -1,8 +1,14 @@
 Changes
+lib/MR/Petrovich/XS.pm
+LICENSE
 Makefile.PL
 MANIFEST
 ppport.h
 README
-XS.xs
+README.md
 t/MR-Petrovich-XS.t
-lib/MR/Petrovich/XS.pm
+typemap
+XS.bs
+XS.c
+XS.o
+XS.xs
