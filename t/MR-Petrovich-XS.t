@@ -5,6 +5,8 @@
 
 # change 'tests => 1' to 'tests => lastconvert_to_print';
 
+use strict;
+
 use Test::More;
 use Test::LeakTrace;
 use utf8;
@@ -159,6 +161,17 @@ sub convert {
             "Test $GENDER[$gender] $kind name [ ${\(encode_utf8($t->[0]))} ; $CASE[$_] ]") for 1..5;
     } else {
         $petr->$method($t->[0], $gender, $_) for 1..5;
+    }
+}
+
+### Empty strings
+for my $kind (qw/first last middle/) {
+    for my $gender (MR::Petrovich::XS::GENDER_MALE, MR::Petrovich::XS::GENDER_FEMALE) {
+        for my $case (0..5) {
+            my $method = "inflect_".$kind."_name";
+            ok(!$petr->$method('', $gender, $case), "Test empty $GENDER[$gender] $kind name with case $CASE[$case]");
+            ok(!$petr->$method(undef, $gender, $case), "Test undefined $GENDER[$gender] $kind name with case $CASE[$case]");
+        }
     }
 }
 

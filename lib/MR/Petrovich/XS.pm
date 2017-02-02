@@ -27,7 +27,7 @@ use strict;
 use warnings;
 use utf8;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 require XSLoader;
 XSLoader::load('MR::Petrovich::XS', $VERSION);
@@ -135,9 +135,12 @@ sub inflect_name {
     confess "Illegal gender '$gender'!" if $gender < 0 || $gender > GENDER_MAX_IDX;
     confess "Illegal case '$case'!" if $case < 0 || $case > CASE_MAX_IDX;
 
+    return $name unless $name;
+
     use bytes;
     my $len = length($name);
-    my $inflected_name = _inflect_name($name, $len, $kind, $gender, $case) or warn "Can't inflect name '$name' (kind:$kind; gender:$gender; case:$case)";
+    my $inflected_name = _inflect_name($name, $len, $kind, $gender, $case);
+    warn "Can't inflect name '$name' (kind:$kind; gender:$gender; case:$case)" if !$inflected_name && $name;
     no bytes;
     return $inflected_name || $name;
 }

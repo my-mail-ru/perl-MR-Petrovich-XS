@@ -1,6 +1,9 @@
 *~
 *.swp
 *.swo
+*.c
+*.o
+*.bs
 
 Makefile
 Makefile.old
